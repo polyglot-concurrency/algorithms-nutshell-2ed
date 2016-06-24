@@ -7,8 +7,8 @@ scalaVersion := "2.11.8"
 
 def CommonSettings(name: String): Project = (
   Project(name, file(name))
-    settings(
-
+    settings (
+    scalacOptions in Compile ++= Seq("-deprecation")
     )
   )
 
