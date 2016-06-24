@@ -35,8 +35,6 @@ object main extends App {
     )
   )
 
-  g.dfs(0)
-
-  println(g.result.mkString(" "))
+  println(g.dfs(0).mkString(" "))
 
 }

@@ -32,16 +32,18 @@ class Graph(nodes: List[Int], edges: Map[Int, List[Int]]) {
 
   def neighbors(v: Node) = E(v)
 
-  def dfs(s: Int): Unit = {
+  def dfs(s: Int): List[Node] = {
     dfs(Node(s))
   }
 
-  def dfs(s: Node): Unit = {
+  def dfs(s: Node) = {
     for (v <- V) {
       pred(v) = null
       color(v) = Color.White
     }
     dfsv(s)
+
+    result.toList
   }
 
 
