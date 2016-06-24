@@ -75,26 +75,17 @@ class Graph(nodes: List[Int], edges: Map[Int, List[(Int, Double)]]) {
 
       val u = getMin(pq)
 
-      neighbors(u).view.map(
-        v => (v, dist(u) + weight(u, v))
-      )
-        .filter(
-          e => {
-            val newLen = e._2
-            val v = e._1
-            newLen < dist(v)
-          }
-        )
-        .foreach(
-          e => {
-            val newLen = e._2
-            val v = e._1
-            decreasePriority(pq, v, newLen)
+      for (v <- neighbors(u);
+           w = weight(u, v);
+           newLen = dist(u) + w;
+           if (newLen < dist(v))) {
 
-            dist(v) = newLen
-            pred(v) = u
-          }
-        )
+        decreasePriority(pq, v, newLen)
+
+        dist(v) = newLen
+        pred(v) = u
+
+      }
 
     }
   }
