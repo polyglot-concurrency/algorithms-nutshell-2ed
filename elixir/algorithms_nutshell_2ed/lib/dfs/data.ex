@@ -28,7 +28,7 @@ defimpl DFS.Graph, for: DFS.Data do
        dfsv(g, s)
        
        Collection.MutableList.get(g.result)
-       |>:lists.reverse()
+       |> Enum.reverse
     end
 
     defp dfsv(g, u) do
