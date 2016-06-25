@@ -8,7 +8,7 @@
 # AGPL (http:www.gnu.org/licenses/agpl-3.0.txt) for more details.
 
 
-defprotocol Dfs.Graph do
+defprotocol DFS.Graph do
     def neighbors(g, v)
     def dfs(g, s)
 end

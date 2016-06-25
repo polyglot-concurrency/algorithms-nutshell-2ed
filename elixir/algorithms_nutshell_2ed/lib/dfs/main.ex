@@ -8,8 +8,8 @@
 # AGPL (http:www.gnu.org/licenses/agpl-3.0.txt) for more details.
 
 
-defmodule Dfs.Main do
-    alias Dfs.Data, as: D
+defmodule DFS.Main do
+    alias DFS.Data, as: D
 
     def run do
 	    D.new( [111 | Enum.to_list(0..14)], 
@@ -32,7 +32,7 @@ defmodule Dfs.Main do
                     111 => [9]
                 } 
             )
-        |> Dfs.Graph.dfs(0) 
+        |> DFS.Graph.dfs(0) 
     end
 
 end
