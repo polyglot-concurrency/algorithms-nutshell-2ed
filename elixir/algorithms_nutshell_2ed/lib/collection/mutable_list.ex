@@ -15,5 +15,7 @@ defmodule Collection.MutableList do
     end
 
     def add(a, value), do: Agent.update(a, &[ value | &1 ]) 
-    def get(a), do:  Agent.get(a, fn e -> e end)
+    def get(a), do: Agent.get(a, fn e -> e end)
+
+    def stop(a), do: Agent.stop(a)
 end
