@@ -7,30 +7,8 @@
 # MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
 # AGPL (http:www.gnu.org/licenses/agpl-3.0.txt) for more details.
 
-defmodule DFS.MutableHash do
-
-    def start do
-        {:ok, p} =  Agent.start fn -> Map.new end
-        p
-    end
-
-    def get(a, key), do: Agent.get(a, &Map.get(&1, key) )
-    def put(a, key, value), do:  Agent.update(a, &Map.put(&1, key, value))
-end
-
-defmodule DFS.MutableList do
-
-    def start do
-        {:ok, p} =  Agent.start fn -> [] end
-        p
-    end
-
-    def add(a, value), do: Agent.update(a, &[ value | &1 ]) 
-    def get(a), do:  Agent.get(a, fn e -> e end)
-end
-
 defmodule DFS.Data do
-    defstruct vs: [], es: %{}, pred: DFS.MutableHash.start(), color: DFS.MutableHash.start(), result: DFS.MutableList.start()
+    defstruct vs: [], es: %{}, pred: Collection.MutableHash.start(), color: Collection.MutableHash.start(), result: Collection.MutableList.start()
 
     def new nodes, edges do
         %DFS.Data{vs: nodes, es: edges}
@@ -44,26 +22,26 @@ defimpl DFS.Graph, for: DFS.Data do
 
     def dfs(g, s) do
        for v <- g.vs do
-            DFS.MutableHash.put(g.pred, v, nil)
-            DFS.MutableHash.put(g.color, v, :white)
+            Collection.MutableHash.put(g.pred, v, nil)
+            Collection.MutableHash.put(g.color, v, :white)
 	   end
        dfsv(g, s)
        
-       DFS.MutableList.get(g.result)
+       Collection.MutableList.get(g.result)
        |>:lists.reverse()
     end
 
     defp dfsv(g, u) do
-        DFS.MutableHash.put(g.color, u, :gray)
+        Collection.MutableHash.put(g.color, u, :gray)
         for v <- neighbors(g, u) do
-            if DFS.MutableHash.get(g.color, v) == :white do
-                DFS.MutableHash.put(g.pred, v, u)
+            if Collection.MutableHash.get(g.color, v) == :white do
+                Collection.MutableHash.put(g.pred, v, u)
                 dfsv(g, v)
             end
         end
-        DFS.MutableHash.put(g.color, u, :black)
+        Collection.MutableHash.put(g.color, u, :black)
 
-        DFS.MutableList.add(g.result, u)
+        Collection.MutableList.add(g.result, u)
     end
 
 end
